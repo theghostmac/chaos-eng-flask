@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: DaemonSet
+spec:
+  template:
+    metadata: ...
+    spec:
+      containers:
+        - name: chaos-daemon
+          securityContext:
+            {{- if .Values.chaosDaemon.privileged }}
+            privileged: true
+            capabilities:
+              add:
+                - SYS_PTRACE
+            {{ - else }}
+            capabilities:
+              add:
+              - SYS_PTRACE
+              - NET_ADMIN
+              - MKNOD
+              - SYS_CHROOT
+              - SYS_ADMIN
+              - KILL
+              # Lock memory with
+              - IPC_LOCK
+            {{ - end }}
