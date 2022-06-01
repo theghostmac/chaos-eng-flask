@@ -1,0 +1,16 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terminapod
+  namespace: app-namespace
+spec:
+  template:
+    metadata:
+      labels:
+        kube-monkey/enabled: enabled
+        kube-monkey/identifier: terminapod
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: '1'
+[... omitted ...]
